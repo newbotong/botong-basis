@@ -35,12 +35,12 @@ subprojects {
     }
 
     dependencies {
-        compile('org.springframework.boot:spring-boot-starter-web:1.5.4.RELEASE')
+        compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
         compile('com.alibaba:fastjson:1.2.31')
 
         compile ("org.apache.commons:commons-lang3:3.4") //添加工具包
 
-        testCompile('org.springframework.boot:spring-boot-starter-test:1.5.4.RELEASE')
+        testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
     }
 
 

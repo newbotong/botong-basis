@@ -1,0 +1,10 @@
+### 设置服务端口和Tomcat编码格式
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+
+### 设置服务名称
+spring:
+  application:
+    name: botong-config
