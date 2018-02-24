@@ -8,3 +8,11 @@ server:
 spring:
   application:
     name: botong-zull
+
+##配置路由忽略服务和是否重试；并利配置链接超时时间
+zuul:
+  ignoredServices: '*'
+  retryable: true
+  host:
+      connect-timeout-millis: 30000
+      socket-timeout-millis: 60000
