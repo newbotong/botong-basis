@@ -1,0 +1,48 @@
+group 'com.yunjing.botong'
+version '1.0-SNAPSHOT'
+
+//定义公共引用
+subprojects {
+
+    buildscript {
+        ext {
+            springBootVersion = '1.5.4.RELEASE'
+        }
+        repositories {
+            maven { url "http://192.168.1.94:8014/repository/maven-central/" }
+            maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+            maven { url "https://repo.spring.io/libs-release" }
+            mavenLocal()
+            mavenCentral()
+        }
+        dependencies {
+            classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        }
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+
+    version = '1.0.0'
+    sourceCompatibility = 1.8
+
+    repositories {
+        maven { url "http://192.168.1.94:8014/repository/maven-central/" }
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        maven { url "https://repo.spring.io/libs-release" }
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencies {
+        compile('org.springframework.boot:spring-boot-starter-web:1.5.4.RELEASE')
+        compile('com.alibaba:fastjson:1.2.31')
+
+        compile ("org.apache.commons:commons-lang3:3.4") //添加工具包
+
+        testCompile('org.springframework.boot:spring-boot-starter-test:1.5.4.RELEASE')
+    }
+
+
+
+}

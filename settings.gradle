@@ -1,0 +1,6 @@
+rootProject.name = 'botong-basis'
+include 'botong-eureka'
+include 'botong-config'
+include 'botong-zuul'
+include 'commons'
+
