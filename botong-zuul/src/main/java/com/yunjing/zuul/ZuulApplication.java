@@ -3,6 +3,7 @@ package com.yunjing.zuul;
 import com.yunjing.mommon.base.BaseApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @description
  **/
 @RestController
+@EnableZuulProxy
 @SpringBootApplication
 public class ZuulApplication extends BaseApplication {
 
