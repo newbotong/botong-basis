@@ -10,8 +10,35 @@ spring:
     name: botong-eureka
 
 eureka:
+  ##微服务修改减短服务心跳的时间
+  instance:
+      lease-expiration-duration-in-seconds: 10
+      lease-renewal-interval-in-seconds: 3
+
+  server:
+    enable-self-preservation: false # 开启Eureka自我保护机制
+    eviction-interval-timer-in-ms: 3000 # 检查服务失效时间
+
   client:
     register-with-eureka: false
     fetch-registry: false
     serviceUrl:
-      defaultZone: http://127.0.0.1:8080/eureka/
+      defaultZone: http://127.0.0.1:8181/eureka/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
