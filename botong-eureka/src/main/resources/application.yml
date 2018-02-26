@@ -1,6 +1,6 @@
 ### 设置服务端口和Tomcat编码格式
 server:
-  port: 8080
+  port: 8181
   tomcat:
     uri-encoding: UTF-8
 
