@@ -35,10 +35,14 @@ subprojects {
     }
 
     dependencies {
+        //添加Spring web 支持
         compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+
+        //添加阿里Json处理工具包
         compile('com.alibaba:fastjson:1.2.31')
 
-        compile ("org.apache.commons:commons-lang3:3.4") //添加工具包
+        //添加Apache 工具包
+        compile ("org.apache.commons:commons-lang3:3.4")
 
         testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
     }
