@@ -1,0 +1,57 @@
+server:
+  port: 9412
+
+spring:
+  application:
+    name: botong-zipkin-server
+  sleuth:
+    enabled: false
+  datasource:
+    url: jdbc:mysql://192.168.10.46:10150/botong-zipkin?autoReconnect=true&useUnicode=true&characterEncoding:UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: YunJing168
+    driver-class-name: com.mysql.jdbc.Driver
+    initialize: true
+    continue-on-error: true
+    schema: classpath:/zipkin.sql
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    config:
+      fail-fast: true
+      discovery:
+        enabled: true
+        service-id: botong-config
+      profile: dev
+      label: master
+
+
+### 注册eureka
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8181/eureka/
+
+
+#zipkin:
+#  storage:
+#    type: mysql
+
+## zipkin数据存储到elasticsearch中的配置
+#zipkin:
+#  storage:
+#    StorageComponent: elasticsearch
+#    type: elasticsearch
+#    elasticsearch:
+#      cluster: elasticsearch-zipkin-cluster
+#      hosts: 127.0.0.1:10010
+#     #pipeline=
+#      max-requests: 64
+#      index: zipkin
+#      index-shards: 5
+#      index-replicas: 1
