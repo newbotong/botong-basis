@@ -1,6 +1,6 @@
 ### 设置服务端口和Tomcat编码格式
 server:
-  port: 8080
+  port: 8888
   tomcat:
     uri-encoding: UTF-8
 
@@ -8,3 +8,22 @@ server:
 spring:
   application:
     name: botong-config
+
+  ##配置Git库
+  cloud:
+    config:
+      label: master
+      server:
+        git:
+          uri: https://gitee.com/yunjing_zx/spring-cloud.git
+          search-paths: spring-cloud
+
+##配置注册中心
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8181/eureka/
+  instance:
+    preferIpAddress: true
+
+
