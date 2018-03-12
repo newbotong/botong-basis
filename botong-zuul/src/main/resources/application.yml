@@ -8,14 +8,14 @@ server:
 spring:
   application:
     name: botong-zuul
-#  cloud:
-#    config:
-#      fail-fast: true
-#      discovery:
-#        enabled: true
-#        service-id: botong-config
-#      profile: dev
-#      label: master
+  cloud:
+    config:
+      fail-fast: true
+      discovery:
+        enabled: true
+        service-id: botong-config
+      profile: dev
+      label: master
 
 ##配置路由忽略服务和是否重试；并利配置链接超时时间
 zuul:
