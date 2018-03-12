@@ -44,6 +44,11 @@ subprojects {
         //添加Apache 工具包
         compile ("org.apache.commons:commons-lang3:3.4")
 
+        //添加@Data注解，省略get set方法，如果出现类中的Get/Set方法不能使用则，
+        // 在Settings中，菜单Build, Execution, Deployment > Compiler > Annotation Processors 下，
+        // 勾选 Enable annotation processing选项即可
+        compile('org.projectlombok:lombok:1.16.18')
+
         testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
     }
 

@@ -8,14 +8,14 @@ server:
 spring:
   application:
     name: botong-zuul
-  cloud:
-    config:
-      fail-fast: true
-      discovery:
-        enabled: true
-        service-id: botong-config
-      profile: dev
-      label: master
+#  cloud:
+#    config:
+#      fail-fast: true
+#      discovery:
+#        enabled: true
+#        service-id: botong-config
+#      profile: dev
+#      label: master
 
 ##配置路由忽略服务和是否重试；并利配置链接超时时间
 zuul:
@@ -24,6 +24,10 @@ zuul:
   host:
       connect-timeout-millis: 30000
       socket-timeout-millis: 60000
+  routes:
+    admin:
+      path: /admin/**
+      serviceId: botong-admin
 
 ##配置注册中心
 eureka:
@@ -32,3 +36,22 @@ eureka:
       defaultZone: http://127.0.0.1:8181/eureka/
   instance:
     preferIpAddress: true
+
+hystrix:
+  threadpool:
+    default:
+      coreSize: 1000 ##并发执行的最大线程数，默认10
+      maxQueueSize: 1000 ##BlockingQueue的最大队列数
+      queueSizeRejectionThreshold: 500 ##即使maxQueueSize没有达到，达到queueSizeRejectionThreshold该值后，请求也会被拒绝
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 50000
+          strategy: SEMAPHORE
+
+
+gate:
+  ignore:
+    uri: /admin/api/adminUser/login
