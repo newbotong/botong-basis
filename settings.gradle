@@ -4,4 +4,5 @@ include 'botong-config'
 include 'botong-zuul'
 include 'commons'
 include 'botong-zipkin'
+include 'botong-mircoapps-zuul'
 

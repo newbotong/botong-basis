@@ -1,0 +1,21 @@
+### 设置服务端口和Tomcat编码格式
+server:
+  port: 8188
+  tomcat:
+    uri-encoding: UTF-8
+
+### 设置服务名称
+spring:
+  application:
+    name: botong-micro-apps
+
+
+
+##配置路由忽略服务和是否重试；并利配置链接超时时间
+zuul:
+  ignoredServices: '*'
+  retryable: true
+  host:
+      connect-timeout-millis: 30000
+      socket-timeout-millis: 60000
+

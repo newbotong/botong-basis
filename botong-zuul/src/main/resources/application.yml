@@ -28,6 +28,9 @@ zuul:
     admin:
       path: /admin/**
       serviceId: botong-admin
+    microapps:
+      path: /microapps/**
+      serviceId: botong-micro-apps
 
 ##配置注册中心
 eureka:
