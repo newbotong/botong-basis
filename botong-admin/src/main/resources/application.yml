@@ -1,0 +1,35 @@
+### 设置服务端口和Tomcat编码格式
+server:
+  port: 11020
+  tomcat:
+    uri-encoding: UTF-8
+
+### 设置服务名称
+spring:
+  application:
+    name: botong-admin
+
+
+##配置注册中心
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.1.201:10010/eureka/
+  instance:
+    preferIpAddress: true
+
+logging:
+  file: ${user.dir}/logs/botong-admin.log
+  level: info
+
+
+#management:
+#  security:
+#    enabled: false
+#
+#security:
+#  basic:
+#    enabled: false
+#  user:
+#    name: yunjing
+#    password: YunJing1024
