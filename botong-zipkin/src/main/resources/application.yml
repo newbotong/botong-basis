@@ -1,9 +1,9 @@
 server:
-  port: 9412
+  port: 10400
 
 spring:
   application:
-    name: botong-zipkin-server
+    name: botong-zipkin
   sleuth:
     enabled: false
   datasource:
@@ -35,7 +35,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     serviceUrl:
-      defaultZone: http://127.0.0.1:8181/eureka/
+      defaultZone: http://192.168.10.233:10100/eureka/
 
 
 #zipkin:
