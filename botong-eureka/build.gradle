@@ -1,6 +1,8 @@
 group 'com.yunjing.botong'
 version '1.0-SNAPSHOT'
 
+apply plugin: 'org.springframework.boot'
+
 dependencies {
     compile project (':commons')
 
