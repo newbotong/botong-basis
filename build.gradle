@@ -34,6 +34,12 @@ subprojects {
         mavenCentral()
     }
 
+    jar {
+        manifest {
+            attributes("Implementation-Title": "Gradle")
+        }
+    }
+
     dependencies {
         //添加Spring web 支持
         compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
