@@ -1,6 +1,6 @@
 ### 设置服务端口和Tomcat编码格式
 server:
-  port: 8181
+  port: 10100
   tomcat:
     uri-encoding: UTF-8
 
@@ -23,7 +23,7 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
     serviceUrl:
-      defaultZone: http://127.0.0.1:8181/eureka/
+      defaultZone: http://127.0.0.1:10100/eureka/
 
 
 
