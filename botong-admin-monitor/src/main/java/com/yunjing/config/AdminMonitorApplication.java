@@ -14,10 +14,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableDiscoveryClient
 @SpringBootApplication
 @EnableAdminServer
-public class AdminApplication extends BaseApplication {
+public class AdminMonitorApplication extends BaseApplication {
 
 
     public static void main(String[] args) {
-        SpringApplication.run(AdminApplication.class, args);
+        SpringApplication.run(AdminMonitorApplication.class, args);
     }
 }

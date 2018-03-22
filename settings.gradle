@@ -5,5 +5,5 @@ include 'botong-zuul'
 include 'commons'
 include 'botong-zipkin'
 include 'botong-mircoapps-zuul'
-include 'botong-admin'
+include 'botong-admin-monitor'
 
