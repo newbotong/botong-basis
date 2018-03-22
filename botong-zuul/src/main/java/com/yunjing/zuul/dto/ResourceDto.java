@@ -28,4 +28,8 @@ public class ResourceDto implements Serializable {
      */
     private String description;
 
+    /**
+     * 请求方法
+     */
+    private String method;
 }

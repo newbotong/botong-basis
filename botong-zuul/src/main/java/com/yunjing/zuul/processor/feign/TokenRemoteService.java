@@ -18,7 +18,4 @@ public interface TokenRemoteService {
 
     @PostMapping("/rpc/auth/authentication")
     RpcResponseWrapper authentication(@RequestBody String accessToken);
-
-    @PostMapping("/prc/auth/decodeToken")
-    RpcResponseWrapper decodeToken(@RequestBody String accessToken);
 }

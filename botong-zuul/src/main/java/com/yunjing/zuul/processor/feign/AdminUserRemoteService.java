@@ -4,7 +4,7 @@ import com.yunjing.mommon.wrapper.RpcResponseWrapper;
 import com.yunjing.zuul.processor.feign.fallback.AdminUserRemoteServiceFallback;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @version 1.0.0
@@ -15,6 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "botong-admin", fallback = AdminUserRemoteServiceFallback.class)
 public interface AdminUserRemoteService {
 
-    @GetMapping("/rpc/adminUser/accessResourceList/{adminUserId}")
-    RpcResponseWrapper accessResourceListByUser(@PathVariable Long adminUserId);
+    @GetMapping("/rpc/adminUser/getAccessResourceList")
+    RpcResponseWrapper accessResourceListByUser(@RequestParam("userId") Long userId);
 }

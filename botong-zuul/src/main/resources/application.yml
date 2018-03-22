@@ -31,21 +31,25 @@ zuul:
     microapps:
       path: /microapps/**
       serviceId: botong-micro-apps
+  prefix: /api
 
 ##配置注册中心
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://127.0.0.1:8181/eureka/
+      defaultZone: http://${eureka.server:192.168.10.233}:${eureka.port:10100}/eureka/
   instance:
     preferIpAddress: true
 
 hystrix:
   threadpool:
     default:
-      coreSize: 1000 ##并发执行的最大线程数，默认10
-      maxQueueSize: 1000 ##BlockingQueue的最大队列数
-      queueSizeRejectionThreshold: 500 ##即使maxQueueSize没有达到，达到queueSizeRejectionThreshold该值后，请求也会被拒绝
+      ##并发执行的最大线程数，默认10
+      coreSize: 1000
+      ##BlockingQueue的最大队列数
+      maxQueueSize: 1000
+      ##即使maxQueueSize没有达到，达到queueSizeRejectionThreshold该值后，请求也会被拒绝
+      queueSizeRejectionThreshold: 500
   command:
     default:
       execution:
@@ -58,3 +62,4 @@ hystrix:
 gate:
   ignore:
     uri: /admin/api/adminUser/login
+    startWith: /microapps,/static

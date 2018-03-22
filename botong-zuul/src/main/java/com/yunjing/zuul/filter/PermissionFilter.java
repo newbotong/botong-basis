@@ -12,6 +12,8 @@ import com.yunjing.zuul.processor.feign.AdminUserRemoteService;
 import com.yunjing.zuul.processor.feign.TokenRemoteService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.MediaType;
@@ -31,8 +33,16 @@ import java.util.List;
 @Component
 public class PermissionFilter extends ZuulFilter {
 
+    private static final Logger logger = LoggerFactory.getLogger(PermissionFilter.class);
+
     @Value("${gate.ignore.uri}")
     private String[] ignorePermissionCheckUrls;
+
+    @Value("${zuul.prefix}")
+    private String prefix;
+
+    @Value("${gate.ignore.startWith}")
+    private String[] ignoreStartWith;
 
     @Resource
     @Lazy
@@ -59,36 +69,64 @@ public class PermissionFilter extends ZuulFilter {
 
     private static final String HEADER_AUTHORIZATION = "Authorization";
     private static final String HEADER_BEARER = "Bearer";
+    private static final String HEADER_USER_ID = "i";
+    private static final String HEADER_USER_INFO = "u";
 
     @Override
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
-        final String requestUri = request.getRequestURI();
+        final String requestUri = request.getRequestURI().substring(prefix.length());
         String authorization = request.getHeader(HEADER_AUTHORIZATION);
+        final String method = request.getMethod();
+
+        if (isIgnoreRequestUrlStartWith(requestUri)) {
+            forwardRequest(authorization);
+            return ctx;
+        }
 
         if (isIgnoreRequestUrl(requestUri)) {
             forwardRequest(authorization);
-            return null;
+            return ctx;
         }
 
         JwtUserDto jwtUserDto = verifyToken(authorization);
         if (null == jwtUserDto) {
             sendForbidden();
-            return null;
+            return ctx;
         }
-        boolean hasPermission = checkPermission(jwtUserDto, requestUri);
+
+        boolean hasPermission = checkPermission(jwtUserDto, requestUri, method);
         if (!hasPermission) {
             sendForbidden();
-            return null;
+            return ctx;
         }
 
         ctx.addZuulRequestHeader(HEADER_AUTHORIZATION, authorization);
-        return null;
+        ctx.addZuulRequestHeader(HEADER_USER_ID, jwtUserDto.getIdentity().toString());
+        ctx.addZuulRequestHeader(HEADER_USER_INFO, jwtUserDto.getUserInfoJson());
+        return ctx;
     }
 
+    /**
+     * 忽略链接
+     *
+     * @param requestUri
+     * @return
+     */
     private boolean isIgnoreRequestUrl(String requestUri) {
         return Arrays.stream(ignorePermissionCheckUrls).distinct().anyMatch(s -> s.equalsIgnoreCase(requestUri));
+    }
+
+
+    /**
+     * URI是否以什么打头
+     *
+     * @param requestUri
+     * @return
+     */
+    private boolean isIgnoreRequestUrlStartWith(String requestUri) {
+        return Arrays.stream(ignoreStartWith).distinct().anyMatch(requestUri::startsWith);
     }
 
     private JwtUserDto verifyToken(String authorization) {
@@ -103,13 +141,14 @@ public class PermissionFilter extends ZuulFilter {
         return null;
     }
 
-    private boolean checkPermission(JwtUserDto jwtUserDto, String requestUri) {
+    private boolean checkPermission(JwtUserDto jwtUserDto, String requestUri, String method) {
         RpcResponseWrapper responseWrapper = adminUserRemoteService.accessResourceListByUser(jwtUserDto.getIdentity());
         boolean anyMatch = false;
         if (responseWrapper.getStatusCode() == StatusCode.SUCCESS.getStatusCode()) {
             List<ResourceDto> accessibleResourceList = JSON.parseArray(responseWrapper.getData(), ResourceDto.class);
             if (accessibleResourceList.isEmpty()) return false;
-            anyMatch = accessibleResourceList.parallelStream().distinct().anyMatch(resourceDto -> resourceDto.getUri().equalsIgnoreCase(requestUri));
+            anyMatch = accessibleResourceList.parallelStream().distinct().anyMatch(resourceDto -> resourceDto.getMethod().equalsIgnoreCase(method)
+                    && resourceDto.getUri().equalsIgnoreCase(requestUri));
         }
         return anyMatch;
     }
@@ -128,6 +167,5 @@ public class PermissionFilter extends ZuulFilter {
         if (StringUtils.isNotEmpty(authorization)) {
             ctx.addZuulRequestHeader(HEADER_AUTHORIZATION, authorization);
         }
-        ctx.setSendZuulResponse(true);
     }
 }

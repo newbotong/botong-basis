@@ -5,8 +5,13 @@ import com.yunjing.zuul.dto.ResourceDto;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @version 1.0.0
@@ -14,10 +19,9 @@ import java.util.ArrayList;
  * @date 2018/3/12
  * @description
  **/
-@Component
 public class AdminUserRemoteServiceFallback {
 
-    public RpcResponseWrapper accessResourceListByUser(@PathVariable Long adminUserId) {
-        return RpcResponseWrapper.success(new ArrayList<ResourceDto>());
+    RpcResponseWrapper accessResourceListByUser(Long userId) {
+        return RpcResponseWrapper.success(Collections.<Long>emptyList());
     }
 }

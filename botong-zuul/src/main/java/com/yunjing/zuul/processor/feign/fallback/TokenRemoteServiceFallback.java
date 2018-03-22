@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
  * @date 11/03/2018
  * @description
  **/
-@Component
 public class TokenRemoteServiceFallback {
 
 
@@ -18,8 +17,4 @@ public class TokenRemoteServiceFallback {
         return RpcResponseWrapper.error(StatusCode.FORBIDDEN);
     }
 
-
-    public RpcResponseWrapper decodeToken(String accessToken) {
-        return RpcResponseWrapper.error(StatusCode.FORBIDDEN);
-    }
 }

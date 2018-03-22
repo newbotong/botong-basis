@@ -1,18 +1,26 @@
 group 'com.yunjing.botong'
 version '1.0-SNAPSHOT'
 
+ext {
+    springBootVersion = '1.5.10.RELEASE'
+    springCloudVersion = '1.3.2.RELEASE'
+}
+
 dependencies {
-    compile project (':commons')
+    compile project(':commons')
 
     //添加Spring cloud 路由支持
-    compile ('org.springframework.cloud:spring-cloud-starter-zuul:1.3.4.RELEASE')
+    compile("org.springframework.cloud:spring-cloud-starter-zuul:${springCloudVersion}")
 
     //添加Spring cloud 注册中心支持
-    compile('org.springframework.cloud:spring-cloud-starter-eureka:1.3.1.RELEASE')
+    compile("org.springframework.cloud:spring-cloud-starter-eureka:${springCloudVersion}")
 
     //添加Spring cloud 配置中心支持
-    compile('org.springframework.cloud:spring-cloud-config-client:1.3.1.RELEASE')
+    compile("org.springframework.cloud:spring-cloud-config-client:${springCloudVersion}")
 
     //添加Spring cloud 注册、配置中心辅助支持
-    compile("org.springframework.boot:spring-boot-starter-actuator:1.5.4.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+
+    //feign配置
+    compile("org.springframework.cloud:spring-cloud-starter-feign:${springCloudVersion}")
 }
