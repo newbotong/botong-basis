@@ -1,6 +1,6 @@
 ### 设置服务端口和Tomcat编码格式
 server:
-  port: 11020
+  port: 10300
   tomcat:
     uri-encoding: UTF-8
 
@@ -14,12 +14,14 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://192.168.1.201:10010/eureka/
+      defaultZone: http://192.168.10.233:10100/eureka/
   instance:
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
     preferIpAddress: true
 
 logging:
-  file: ${user.dir}/logs/botong-admin.log
+  file: ${user.dir}/logs/${spring.application.name}.log
   level: info
 
 

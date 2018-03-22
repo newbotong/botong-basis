@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <jmxConfigurator/>
+
+    <!--<springProperty scope="context" name="redisKey" source="logback.redisKey"/>
+    <springProperty scope="context" name="hostName" source="logback.hostName"/>
+    <springProperty scope="context" name="database" source="logback.database"/>
+    <springProperty scope="context" name="port" source="logback.port"/>
+    <springProperty scope="context" name="type" source="logback.type"/>
+
+    <appender name="redisAppender" class="com.cwbase.logback.RedisAppender">
+        <host>${hostName}</host>
+        <port>${port}</port>
+        &lt;!&ndash; 设置保存的Redis key &ndash;&gt;
+        <key>${redisKey}</key>
+        &lt;!&ndash; 设置数据库 &ndash;&gt;
+        <database>${database}</database>
+        &lt;!&ndash; Kibana 区分类型 &ndash;&gt;
+        <type>${type}</type>
+    </appender>
+
+    <appender name="sync" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold >0</discardingThreshold>
+        &lt;!&ndash; 更改默认的队列的深度,该值会影响性能.默认值为256 &ndash;&gt;
+        <queueSize>512</queueSize>
+        <appender-ref ref ="redisAppender"/>
+    </appender>-->
+
+    <root level="INFO">
+        <!--<appender-ref ref="sync"/>-->
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>

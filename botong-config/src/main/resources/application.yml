@@ -1,6 +1,6 @@
 ### 设置服务端口和Tomcat编码格式
 server:
-  port: 8888
+  port: 10200
   tomcat:
     uri-encoding: UTF-8
 
@@ -11,25 +11,33 @@ spring:
 
   ##配置Git库
   cloud:
-    config:
-      label: master
-      server:
-        git:
-          uri: https://gitee.com/yunjing_zx/spring-cloud.git
-          search-paths: spring-cloud
+      config:
+        server:
+          git:
+            uri: https://gitee.com/newbotong/botong-config.git
+            force-pull: true
+            timeout: 20
+            username: wuke@vv.cc
+            password: wuke2017
+            basedir: config-repo/config-repo
 
 ##配置注册中心
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://192.168.1.201:10010/eureka/
+      defaultZone: http://192.168.10.233:10100/eureka/
   instance:
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
     preferIpAddress: true
 
-#启用shutdown
-endpoints:
-  shutdown:
-    enabled: true
-#禁用密码验证
-    sensitive: false
+##启用shutdown
+#endpoints:
+#  shutdown:
+#    enabled: true
+##禁用密码验证
+#    sensitive: false
 
+logging:
+  file: ${user.dir}/logs/${spring.application.name}.log
+  level: info
