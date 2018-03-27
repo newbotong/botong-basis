@@ -1,5 +1,6 @@
 package com.yunjing.zuul.processor.feign.fallback;
 
+import com.yunjing.mommon.wrapper.ResponseEntityWrapper;
 import com.yunjing.mommon.wrapper.RpcResponseWrapper;
 import com.yunjing.zuul.dto.ResourceDto;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ import java.util.List;
  **/
 public class AdminUserRemoteServiceFallback {
 
-    RpcResponseWrapper accessResourceListByUser(Long userId) {
-        return RpcResponseWrapper.success(Collections.<Long>emptyList());
+    ResponseEntityWrapper<List<ResourceDto>> accessResourceListByUser(Long userId) {
+        return ResponseEntityWrapper.success(Collections.<Long>emptyList());
     }
 }

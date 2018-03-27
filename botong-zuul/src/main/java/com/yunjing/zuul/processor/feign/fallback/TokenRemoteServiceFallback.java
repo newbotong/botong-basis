@@ -1,7 +1,9 @@
 package com.yunjing.zuul.processor.feign.fallback;
 
 import com.yunjing.mommon.constant.StatusCode;
+import com.yunjing.mommon.wrapper.ResponseEntityWrapper;
 import com.yunjing.mommon.wrapper.RpcResponseWrapper;
+import com.yunjing.zuul.dto.JwtUserDto;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,8 +15,8 @@ import org.springframework.stereotype.Component;
 public class TokenRemoteServiceFallback {
 
 
-    public RpcResponseWrapper authentication(String accessToken) {
-        return RpcResponseWrapper.error(StatusCode.FORBIDDEN);
+    public ResponseEntityWrapper<JwtUserDto> authentication(String accessToken) {
+        return ResponseEntityWrapper.error(StatusCode.FORBIDDEN);
     }
 
 }

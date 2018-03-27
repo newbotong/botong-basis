@@ -1,6 +1,8 @@
 package com.yunjing.zuul.processor.feign;
 
+import com.yunjing.mommon.wrapper.ResponseEntityWrapper;
 import com.yunjing.mommon.wrapper.RpcResponseWrapper;
+import com.yunjing.zuul.dto.JwtUserDto;
 import com.yunjing.zuul.processor.feign.fallback.TokenRemoteServiceFallback;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,5 +19,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface TokenRemoteService {
 
     @PostMapping("/rpc/auth/authentication")
-    RpcResponseWrapper authentication(@RequestBody String accessToken);
+    ResponseEntityWrapper<JwtUserDto> authentication(@RequestBody String accessToken);
 }

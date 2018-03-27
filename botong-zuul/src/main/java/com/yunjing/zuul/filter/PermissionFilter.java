@@ -132,20 +132,20 @@ public class PermissionFilter extends ZuulFilter {
     private JwtUserDto verifyToken(String authorization) {
         if (StringUtils.isNotEmpty(authorization) && authorization.startsWith(HEADER_BEARER)) {
             String token = authorization.split(" ")[1];
-            RpcResponseWrapper response = tokenRemoteService.authentication(token);
+            ResponseEntityWrapper<JwtUserDto> response = tokenRemoteService.authentication(token);
             if (response.getStatusCode() == StatusCode.SUCCESS.getStatusCode()) {
                 //verify token success
-                return JSON.parseObject(response.getData(), JwtUserDto.class);
+                return response.getData();
             }
         }
         return null;
     }
 
     private boolean checkPermission(JwtUserDto jwtUserDto, String requestUri, String method) {
-        RpcResponseWrapper responseWrapper = adminUserRemoteService.accessResourceListByUser(jwtUserDto.getIdentity());
+        ResponseEntityWrapper<List<ResourceDto>> responseWrapper = adminUserRemoteService.accessResourceListByUser(jwtUserDto.getIdentity());
         boolean anyMatch = false;
         if (responseWrapper.getStatusCode() == StatusCode.SUCCESS.getStatusCode()) {
-            List<ResourceDto> accessibleResourceList = JSON.parseArray(responseWrapper.getData(), ResourceDto.class);
+            List<ResourceDto> accessibleResourceList = responseWrapper.getData();
             if (accessibleResourceList.isEmpty()) return false;
             anyMatch = accessibleResourceList.parallelStream().distinct().anyMatch(resourceDto -> resourceDto.getMethod().equalsIgnoreCase(method)
                     && resourceDto.getUri().equalsIgnoreCase(requestUri));
