@@ -19,6 +19,6 @@ import java.util.List;
 @FeignClient(name = "botong-admin", fallback = AdminUserRemoteServiceFallback.class)
 public interface AdminUserRemoteService {
 
-    @GetMapping("/rpc/adminUser/get-access-resource-list")
+    @GetMapping("/rpc/adminUser/get-accessible-resource-list")
     ResponseEntityWrapper<List<ResourceDto>> accessResourceListByUser(@RequestParam("userId") Long userId);
 }
