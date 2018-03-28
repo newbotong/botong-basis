@@ -36,10 +36,13 @@ zuul:
       serviceId: botong-app-center
     passport:
       path: /passport/**
-      serviceId: botong-passport
+      serviceId: botong-passport-domain
     org:
       path: /org/**
       serviceId: botong-org-structure
+    im:
+      path: /im/**
+      serviceId: botong-im
   prefix: /api
 
 ##配置注册中心
