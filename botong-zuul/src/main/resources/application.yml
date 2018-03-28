@@ -31,6 +31,15 @@ zuul:
     microapps:
       path: /microapps/**
       serviceId: botong-micro-apps
+    appcenter:
+      path: /appcenter/**
+      serviceId: botong-app-center
+    passport:
+      path: /passport/**
+      serviceId: botong-passport
+    org:
+      path: /org/**
+      serviceId: botong-org-structure
   prefix: /api
 
 ##配置注册中心
