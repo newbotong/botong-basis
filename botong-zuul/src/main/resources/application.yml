@@ -1,6 +1,6 @@
 ### 设置服务端口和Tomcat编码格式
 server:
-  port: 8188
+  port: 8000
   tomcat:
     uri-encoding: UTF-8
 
@@ -8,6 +8,11 @@ server:
 spring:
   application:
     name: botong-zuul
+  rabbitmq:
+      host: ${rabbitmq.server}
+      port: ${rabbitmq.port}
+      username: ${rabbitmq.username}
+      password: ${rabbitmq.password}
   cloud:
     config:
       fail-fast: true
