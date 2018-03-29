@@ -1,6 +1,6 @@
 ### 设置服务端口和Tomcat编码格式
 server:
-  port: 8188
+  port: 8000
   tomcat:
     uri-encoding: UTF-8
 
@@ -8,6 +8,11 @@ server:
 spring:
   application:
     name: botong-zuul
+  rabbitmq:
+      host: ${rabbitmq.server}
+      port: ${rabbitmq.port}
+      username: ${rabbitmq.username}
+      password: ${rabbitmq.password}
   cloud:
     config:
       fail-fast: true
@@ -49,7 +54,7 @@ zuul:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://${eureka.server:192.168.10.233}:${eureka.port:10100}/eureka/
+      defaultZone: http://${eureka.server}:${eureka.port}/eureka/
   instance:
     preferIpAddress: true
 
@@ -70,6 +75,9 @@ hystrix:
             timeoutInMilliseconds: 50000
           strategy: SEMAPHORE
 
+# 写入文件日志
+logging:
+  file: ${user.dir}/logs/${spring.application.name}.log
 
 gate:
   ignore:

@@ -1,7 +1,6 @@
 package com.yunjing.zuul.processor.feign;
 
 import com.yunjing.mommon.wrapper.ResponseEntityWrapper;
-import com.yunjing.mommon.wrapper.RpcResponseWrapper;
 import com.yunjing.zuul.dto.ResourceDto;
 import com.yunjing.zuul.processor.feign.fallback.AdminUserRemoteServiceFallback;
 import org.springframework.cloud.netflix.feign.FeignClient;
