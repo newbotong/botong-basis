@@ -79,13 +79,11 @@ public class PermissionFilter extends ZuulFilter {
         String authorization = request.getHeader(HEADER_AUTHORIZATION);
         final String method = request.getMethod();
 
-        if (isIgnoreRequestUrlStartWith(requestUri)) {
-            forwardRequest(authorization);
+        if (isIgnoreRequestUrl(requestUri)) {
             return ctx;
         }
 
-        if (isIgnoreRequestUrl(requestUri)) {
-            forwardRequest(authorization);
+        if (isIgnoreRequestUrlStartWith(requestUri)) {
             return ctx;
         }
 
