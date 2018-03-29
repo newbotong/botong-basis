@@ -81,5 +81,5 @@ logging:
 
 gate:
   ignore:
-    uri: /admin/api/adminUser/login,/api/passport/user/login-code,/api/passport/user/send-login-code,/api/passport/user/login-pwd
+    uri: /admin/api/adminUser/login,/passport/user/login-code,/passport/user/send-login-code,/passport/user/login-pwd
     startWith: /microapps,/static

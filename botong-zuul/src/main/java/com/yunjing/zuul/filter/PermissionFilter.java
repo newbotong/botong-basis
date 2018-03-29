@@ -76,33 +76,34 @@ public class PermissionFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
         final String requestUri = request.getRequestURI().substring(prefix.length());
-        String authorization = request.getHeader(HEADER_AUTHORIZATION);
-        final String method = request.getMethod();
 
         if (isIgnoreRequestUrl(requestUri)) {
-            return ctx;
+            return null;
         }
 
         if (isIgnoreRequestUrlStartWith(requestUri)) {
-            return ctx;
+            return null;
         }
+
+        String authorization = request.getHeader(HEADER_AUTHORIZATION);
+        final String method = request.getMethod();
 
         JwtUserDto jwtUserDto = verifyToken(authorization);
         if (null == jwtUserDto) {
             sendForbidden();
-            return ctx;
+            return null;
         }
 
 //        boolean hasPermission = checkPermission(jwtUserDto, requestUri, method);
 //        if (!hasPermission) {
 //            sendForbidden();
-//            return ctx;
+//            return null;
 //        }
 
         ctx.addZuulRequestHeader(HEADER_AUTHORIZATION, authorization);
         ctx.addZuulRequestHeader(HEADER_USER_ID, jwtUserDto.getIdentity().toString());
         ctx.addZuulRequestHeader(HEADER_USER_INFO, jwtUserDto.getUserInfoJson());
-        return ctx;
+        return null;
     }
 
     /**
