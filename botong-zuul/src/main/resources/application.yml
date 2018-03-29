@@ -37,7 +37,7 @@ zuul:
       path: /microapps/**
       serviceId: botong-micro-apps
     appcenter:
-      path: /appcenter/**
+      path: /app-center/**
       serviceId: botong-app-center
     passport:
       path: /passport/**
