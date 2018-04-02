@@ -48,6 +48,9 @@ zuul:
     im:
       path: /im/**
       serviceId: botong-im
+    dang:
+      path: /dang/**
+      serviceId: botong-dang
   prefix: /api
 
 ##配置注册中心
