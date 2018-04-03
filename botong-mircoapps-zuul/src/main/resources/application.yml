@@ -9,6 +9,13 @@ spring:
   application:
     name: botong-micro-apps
 
+##配置注册中心
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.server}:${eureka.port}/eureka/
+  instance:
+    preferIpAddress: true
 
 
 ##配置路由忽略服务和是否重试；并利配置链接超时时间
