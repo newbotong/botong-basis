@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      profile: dev
+      uri: http://192.168.10.233:10200/
+    mvc:
+      static-path-pattern: /**
