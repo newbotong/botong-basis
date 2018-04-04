@@ -17,6 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
         fallback = TokenRemoteServiceFallback.class)
 public interface TokenRemoteService {
 
+    /**
+     * token校验
+     *
+     * @param accessToken
+     * @return
+     */
     @PostMapping("/rpc/auth/authentication")
     ResponseEntityWrapper<JwtUserDto> authentication(@RequestBody String accessToken);
 }

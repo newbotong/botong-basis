@@ -144,7 +144,9 @@ public class PermissionFilter extends ZuulFilter {
         boolean anyMatch = false;
         if (responseWrapper.getStatusCode() == StatusCode.SUCCESS.getStatusCode()) {
             List<ResourceDto> accessibleResourceList = responseWrapper.getData();
-            if (accessibleResourceList.isEmpty()) return false;
+            if (accessibleResourceList.isEmpty()) {
+                return false;
+            }
             anyMatch = accessibleResourceList.parallelStream().distinct().anyMatch(resourceDto -> resourceDto.getMethod().equalsIgnoreCase(method)
                     && resourceDto.getUri().equalsIgnoreCase(requestUri));
         }
