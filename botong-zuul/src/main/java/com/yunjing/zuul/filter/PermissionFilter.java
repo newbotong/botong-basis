@@ -77,22 +77,23 @@ public class PermissionFilter extends ZuulFilter {
         HttpServletRequest request = ctx.getRequest();
         final String requestUri = request.getRequestURI().substring(prefix.length());
 
-        if (isIgnoreRequestUrl(requestUri)) {
-            return null;
-        }
-
-        if (isIgnoreRequestUrlStartWith(requestUri)) {
-            return null;
-        }
-
-        String authorization = request.getHeader(HEADER_AUTHORIZATION);
-        final String method = request.getMethod();
-
-        JwtUserDto jwtUserDto = verifyToken(authorization);
-        if (null == jwtUserDto) {
-            sendForbidden();
-            return null;
-        }
+        return null;
+//        if (isIgnoreRequestUrl(requestUri)) {
+//            return null;
+//        }
+//
+//        if (isIgnoreRequestUrlStartWith(requestUri)) {
+//            return null;
+//        }
+//
+//        String authorization = request.getHeader(HEADER_AUTHORIZATION);
+//        final String method = request.getMethod();
+//
+//        JwtUserDto jwtUserDto = verifyToken(authorization);
+//        if (null == jwtUserDto) {
+//            sendForbidden();
+//            return null;
+//        }
 
 //        boolean hasPermission = checkPermission(jwtUserDto, requestUri, method);
 //        if (!hasPermission) {
@@ -100,10 +101,10 @@ public class PermissionFilter extends ZuulFilter {
 //            return null;
 //        }
 
-        ctx.addZuulRequestHeader(HEADER_AUTHORIZATION, authorization);
-        ctx.addZuulRequestHeader(HEADER_USER_ID, jwtUserDto.getIdentity().toString());
-        ctx.addZuulRequestHeader(HEADER_USER_INFO, jwtUserDto.getUserInfoJson());
-        return null;
+//        ctx.addZuulRequestHeader(HEADER_AUTHORIZATION, authorization);
+//        ctx.addZuulRequestHeader(HEADER_USER_ID, jwtUserDto.getIdentity().toString());
+//        ctx.addZuulRequestHeader(HEADER_USER_INFO, jwtUserDto.getUserInfoJson());
+//        return null;
     }
 
     /**
