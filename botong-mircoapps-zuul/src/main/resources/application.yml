@@ -16,7 +16,8 @@ eureka:
       defaultZone: http://${eureka.server}:${eureka.port}/eureka/
   instance:
     preferIpAddress: true
-
+    lease-renewal-interval-in-seconds: 1
+    lease-expiration-duration-in-seconds: 1
 
 ##配置路由忽略服务和是否重试；并利配置链接超时时间
 zuul:
