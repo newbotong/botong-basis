@@ -52,7 +52,7 @@ zuul:
       socket-timeout-millis: 60000
   routes:
     auth-server:
-      path: /auth-server/
+      path: /auth-server/**
       serviceId: botong-auth-server
     admin:
       path: /admin/**
