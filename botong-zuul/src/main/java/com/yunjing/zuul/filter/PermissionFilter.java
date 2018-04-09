@@ -79,6 +79,12 @@ public class PermissionFilter extends ZuulFilter {
 
         logger.info("request url = {}", requestUri);
 
+        String authorization = request.getHeader(HEADER_AUTHORIZATION);
+
+        if (StringUtils.isNotEmpty(authorization)) {
+            ctx.addZuulRequestHeader(HEADER_AUTHORIZATION, authorization);
+        }
+
         if (isIgnoreRequestUrl(requestUri)) {
             logger.info("ignore request url = {}", requestUri);
             return null;
@@ -89,7 +95,7 @@ public class PermissionFilter extends ZuulFilter {
             return null;
         }
 
-        String authorization = request.getHeader(HEADER_AUTHORIZATION);
+
         final String method = request.getMethod();
 
         JwtUserDto jwtUserDto = verifyToken(authorization);
@@ -104,7 +110,6 @@ public class PermissionFilter extends ZuulFilter {
 //            return null;
 //        }
 
-        ctx.addZuulRequestHeader(HEADER_AUTHORIZATION, authorization);
         ctx.addZuulRequestHeader(HEADER_USER_ID, jwtUserDto.getIdentity().toString());
         ctx.addZuulRequestHeader(HEADER_USER_INFO, jwtUserDto.getUserInfoJson());
         logger.info("forward user id = {} ", jwtUserDto.getIdentity().toString());
