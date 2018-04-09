@@ -51,6 +51,9 @@ zuul:
       connect-timeout-millis: 30000
       socket-timeout-millis: 60000
   routes:
+    auth-server:
+      path: /auth-server/
+      serviceId: botong-auth-server
     admin:
       path: /admin/**
       serviceId: botong-admin
@@ -116,5 +119,5 @@ logging:
 
 gate:
   ignore:
-    uri: /admin/api/adminUser/login,/passport/user/login-code,/passport/user/send-login-code,/passport/user/login-pwd
+    uri: /admin/api/adminUser/login,/passport/user/login-code,/passport/user/send-login-code,/passport/user/login-pwd,/auth-server/auth/refresh-token
     startWith: /microapps,/static
