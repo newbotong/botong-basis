@@ -77,11 +77,15 @@ public class PermissionFilter extends ZuulFilter {
         HttpServletRequest request = ctx.getRequest();
         final String requestUri = request.getRequestURI().substring(prefix.length());
 
+        logger.info("request url = {}", requestUri);
+
         if (isIgnoreRequestUrl(requestUri)) {
+            logger.info("ignore request url = {}", requestUri);
             return null;
         }
 
         if (isIgnoreRequestUrlStartWith(requestUri)) {
+            logger.info("ignore request url = {}", requestUri);
             return null;
         }
 
@@ -103,6 +107,9 @@ public class PermissionFilter extends ZuulFilter {
         ctx.addZuulRequestHeader(HEADER_AUTHORIZATION, authorization);
         ctx.addZuulRequestHeader(HEADER_USER_ID, jwtUserDto.getIdentity().toString());
         ctx.addZuulRequestHeader(HEADER_USER_INFO, jwtUserDto.getUserInfoJson());
+        logger.info("forward user id = {} ", jwtUserDto.getIdentity().toString());
+
+        logger.info("forward user info = {}", jwtUserDto.getUserInfoJson());
         return null;
     }
 
