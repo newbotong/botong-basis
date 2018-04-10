@@ -75,6 +75,9 @@ zuul:
     dang:
       path: /dang/**
       serviceId: botong-dang
+    thirdparty:
+      path: /third-party/**
+      serviceId: botong-third-party
   prefix: /api
   #限流配置
   ratelimit:
