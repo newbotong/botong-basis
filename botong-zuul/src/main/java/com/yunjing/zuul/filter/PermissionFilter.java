@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.yunjing.mommon.constant.StatusCode;
+import com.yunjing.mommon.global.exception.BaseRuntimeException;
 import com.yunjing.mommon.wrapper.ResponseEntityWrapper;
 import com.yunjing.zuul.dto.JwtUserDto;
 import com.yunjing.zuul.dto.ResourceDto;
@@ -73,48 +74,46 @@ public class PermissionFilter extends ZuulFilter {
 
     @Override
     public Object run() {
-        RequestContext ctx = RequestContext.getCurrentContext();
-        HttpServletRequest request = ctx.getRequest();
-        final String requestUri = request.getRequestURI().substring(prefix.length());
+        try {
+            RequestContext ctx = RequestContext.getCurrentContext();
+            HttpServletRequest request = ctx.getRequest();
+            final String requestUri = request.getRequestURI().substring(prefix.length());
 
-        logger.info("request url = {}", requestUri);
+            logger.info("request url = {}", requestUri);
 
-        String authorization = request.getHeader(HEADER_AUTHORIZATION);
+            String authorization = request.getHeader(HEADER_AUTHORIZATION);
 
-        if (StringUtils.isNotEmpty(authorization)) {
-            ctx.addZuulRequestHeader(HEADER_AUTHORIZATION, authorization);
+            if (StringUtils.isNotEmpty(authorization)) {
+                ctx.addZuulRequestHeader(HEADER_AUTHORIZATION, authorization);
+            }
+
+            if (isIgnoreRequestUrl(requestUri)) {
+                logger.info("ignore request url = {}", requestUri);
+                return null;
+            }
+
+            if (isIgnoreRequestUrlStartWith(requestUri)) {
+                logger.info("ignore request url = {}", requestUri);
+                return null;
+            }
+
+
+            final String method = request.getMethod();
+
+            try {
+                JwtUserDto jwtUserDto = verifyToken(authorization);
+//                checkPermission(jwtUserDto, requestUri, method);
+                ctx.addZuulRequestHeader(HEADER_USER_ID, jwtUserDto.getIdentity().toString());
+                ctx.addZuulRequestHeader(HEADER_USER_INFO, jwtUserDto.getUserInfoJson());
+                logger.info("forward user id = {} ", jwtUserDto.getIdentity().toString());
+
+                logger.info("forward user info = {}", jwtUserDto.getUserInfoJson());
+            } catch (BaseRuntimeException e) {
+                sendErrorResponse(e.getCode(), e.getMessage());
+            }
+        } catch (Exception e) {
+            sendErrorResponse(StatusCode.ERROR.getStatusCode(), StatusCode.ERROR.getStatusMessage());
         }
-
-        if (isIgnoreRequestUrl(requestUri)) {
-            logger.info("ignore request url = {}", requestUri);
-            return null;
-        }
-
-        if (isIgnoreRequestUrlStartWith(requestUri)) {
-            logger.info("ignore request url = {}", requestUri);
-            return null;
-        }
-
-
-        final String method = request.getMethod();
-
-        JwtUserDto jwtUserDto = verifyToken(authorization);
-        if (null == jwtUserDto) {
-            sendForbidden();
-            return null;
-        }
-
-//        boolean hasPermission = checkPermission(jwtUserDto, requestUri, method);
-//        if (!hasPermission) {
-//            sendForbidden();
-//            return null;
-//        }
-
-        ctx.addZuulRequestHeader(HEADER_USER_ID, jwtUserDto.getIdentity().toString());
-        ctx.addZuulRequestHeader(HEADER_USER_INFO, jwtUserDto.getUserInfoJson());
-        logger.info("forward user id = {} ", jwtUserDto.getIdentity().toString());
-
-        logger.info("forward user info = {}", jwtUserDto.getUserInfoJson());
         return null;
     }
 
@@ -146,38 +145,39 @@ public class PermissionFilter extends ZuulFilter {
             if (response.getStatusCode() == StatusCode.SUCCESS.getStatusCode()) {
                 //verify token success
                 return response.getData();
+            } else {
+                throw new BaseRuntimeException(response.getStatusCode(), response.getStatusMessage());
             }
+        } else {
+            throw new BaseRuntimeException(StatusCode.TOKEN_IS_EMPTY);
         }
-        return null;
     }
 
-    private boolean checkPermission(JwtUserDto jwtUserDto, String requestUri, String method) {
+    private void checkPermission(JwtUserDto jwtUserDto, String requestUri, String method) {
+        boolean matched = false;
         ResponseEntityWrapper<List<ResourceDto>> responseWrapper = adminUserRemoteService.accessResourceListByUser(jwtUserDto.getIdentity());
-        boolean anyMatch = false;
         if (responseWrapper.getStatusCode() == StatusCode.SUCCESS.getStatusCode()) {
             List<ResourceDto> accessibleResourceList = responseWrapper.getData();
             if (accessibleResourceList.isEmpty()) {
-                return false;
+                throw new BaseRuntimeException(StatusCode.FORBIDDEN);
             }
-            anyMatch = accessibleResourceList.parallelStream().distinct().anyMatch(resourceDto -> resourceDto.getMethod().equalsIgnoreCase(method)
+            matched = accessibleResourceList.parallelStream().distinct().anyMatch(resourceDto -> resourceDto.getMethod().equalsIgnoreCase(method)
                     && resourceDto.getUri().equalsIgnoreCase(requestUri));
+        } else {
+            throw new BaseRuntimeException(responseWrapper.getStatusCode(), responseWrapper.getStatusMessage());
         }
-        return anyMatch;
+        if (!matched) {
+            throw new BaseRuntimeException(StatusCode.FORBIDDEN);
+        }
     }
 
-    private void sendForbidden() {
+    private void sendErrorResponse(int statusCode, String message) {
         RequestContext ctx = RequestContext.getCurrentContext();
         ctx.setResponseStatusCode(HttpStatus.SC_OK);
         ctx.addZuulResponseHeader("Content-Type", MediaType.APPLICATION_JSON_UTF8.toString());
-        ResponseEntityWrapper wrapper = ResponseEntityWrapper.error(StatusCode.FORBIDDEN);
+        ResponseEntityWrapper wrapper = ResponseEntityWrapper.error(statusCode, message);
         ctx.setResponseBody(JSON.toJSONString(wrapper));
         ctx.setSendZuulResponse(false);
     }
 
-    private void forwardRequest(String authorization) {
-        RequestContext ctx = RequestContext.getCurrentContext();
-        if (StringUtils.isNotEmpty(authorization)) {
-            ctx.addZuulRequestHeader(HEADER_AUTHORIZATION, authorization);
-        }
-    }
 }
