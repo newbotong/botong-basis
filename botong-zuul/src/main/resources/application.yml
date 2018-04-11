@@ -90,7 +90,6 @@ zuul:
           refresh-interval: 30 # 刷新时间窗口的时间，默认值 (秒)
           type:
            - origin
-           - user
 
 ##配置注册中心
 eureka:
