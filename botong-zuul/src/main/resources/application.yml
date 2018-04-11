@@ -89,6 +89,7 @@ zuul:
           limit: 100 #optional - 每个刷新时间窗口对应的请求数量限制
           refresh-interval: 30 # 刷新时间窗口的时间，默认值 (秒)
           type:
+           - origin
            - user
 
 ##配置注册中心

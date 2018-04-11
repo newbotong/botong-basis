@@ -29,9 +29,6 @@ dependencies {
     //添加公共组件
     compile('com.yunjing.botong:commons:2.0.0-SNAPSHOT') { changing = true }
 
-    //Redis限流类库
-    compile('com.marcosbarbero.cloud:spring-cloud-zuul-ratelimit:1.5.1.RELEASE')
-
     //Redis
     compile('org.springframework.boot:spring-boot-starter-data-redis')
     
