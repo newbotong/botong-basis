@@ -25,5 +25,5 @@ public interface AdminUserRemoteService {
      * @return
      */
     @GetMapping("/rpc/adminUser/get-accessible-resource-list")
-    ResponseEntityWrapper<List<ResourceDto>> accessResourceListByUser(@RequestParam("userId") Long userId);
+    ResponseEntityWrapper<List<ResourceDto>> accessResourceListByUser(@RequestParam("userId") String userId);
 }

@@ -2,6 +2,7 @@ package com.yunjing.zuul.processor.feign.fallback;
 
 import com.yunjing.mommon.wrapper.ResponseEntityWrapper;
 import com.yunjing.zuul.dto.ResourceDto;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  **/
 public class AdminUserRemoteServiceFallback {
 
-    ResponseEntityWrapper<List<ResourceDto>> accessResourceListByUser(Long userId) {
+    ResponseEntityWrapper<List<ResourceDto>> accessResourceListByUser(String userId) {
         return ResponseEntityWrapper.success(Collections.<Long>emptyList());
     }
 }

@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Data
 public class JwtUserDto implements Serializable {
 
-    private Long identity;
+    private String identity;
     private String userInfoJson;
     private Boolean isAdmin;
 }
