@@ -5,7 +5,9 @@ version '1.0-SNAPSHOT'
 apply plugin: 'org.springframework.boot'
 
 dependencies {
-    compile project (':commons')
+    compile("com.yunjing.botong:commons:2.0.0-SNAPSHOT") {
+        changing = true
+    }
     //zipkin server 配置
     compile("org.springframework.cloud:spring-cloud-sleuth-zipkin-stream:1.3.2.RELEASE")
     runtime("io.zipkin.java:zipkin-autoconfigure-ui:2.5.0")
@@ -14,9 +16,11 @@ dependencies {
     //mysql
     compile("mysql:mysql-connector-java:5.1.38")
     //compile("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}")
+    compile('org.springframework.boot:spring-boot-starter-jdbc:1.5.10.RELEASE')
     compile("io.zipkin.java:zipkin-autoconfigure-storage-elasticsearch-http:2.5.0")
 
     compile('org.springframework.cloud:spring-cloud-starter-eureka:1.3.1.RELEASE')
     compile('org.springframework.cloud:spring-cloud-config-client:1.3.1.RELEASE')
     compile("org.springframework.boot:spring-boot-starter-actuator:1.5.4.RELEASE")
+    compile('com.alibaba:druid:1.1.8')
 }
