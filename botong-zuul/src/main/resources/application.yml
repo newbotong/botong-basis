@@ -78,6 +78,15 @@ zuul:
     thirdparty:
       path: /third-party/**
       serviceId: botong-third-party
+    contacts:
+      path: /contacts/**
+      serviceId: botong-contacts
+    favourite:
+      path: /favourite/**
+      serviceId: botong-favourite
+    comment:
+      path: /comment/**
+      serviceId: botong-comment
   prefix: /api
   #限流配置
   ratelimit:
