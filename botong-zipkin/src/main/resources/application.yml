@@ -38,9 +38,9 @@ eureka:
       defaultZone: http://192.168.10.233:10100/eureka/
 
 
-#zipkin:
-#  storage:
-#    type: mysql
+zipkin:
+  storage:
+    type: mysql
 
 ## zipkin数据存储到elasticsearch中的配置
 #zipkin:
@@ -55,3 +55,8 @@ eureka:
 #      index: zipkin
 #      index-shards: 5
 #      index-replicas: 1
+
+
+# 写入文件日志
+logging:
+  file: ${user.dir}/logs/${spring.application.name}.log
