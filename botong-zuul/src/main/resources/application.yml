@@ -3,6 +3,14 @@ server:
   port: 8000
   tomcat:
     uri-encoding: UTF-8
+    max-threads: 128 # 最大worker线程
+    min-spare-threads: 64 # 最小worker线程
+  undertow:
+    io-threads: 8 # IO线程数，默认为CPU核心数，最小为2
+    worker-threads: 40 # 阻塞任务线程池，值设置取决于系统的负载，默认为io-threads * 8
+    buffer-size: 512 # 每块buffer的空间大小
+    buffers-per-region: 10 # 每个区分配的buffer数量
+    direct-buffers: true # 是否分配的直接内存
 
 ### 设置服务名称
 spring:
@@ -50,6 +58,8 @@ zuul:
   host:
       connect-timeout-millis: 30000
       socket-timeout-millis: 60000
+      max-total-connections: 500 # 每个服务的http客户端连接池最大连接，默认值是200
+      max-per-route-connections: 50 # 每个route可用的最大连接数，默认值是20
   routes:
     auth-server:
       path: /auth-server/**
@@ -88,6 +98,7 @@ zuul:
       path: /comment/**
       serviceId: botong-comment
   prefix: /api
+  ribbon-isolation-strategy: THREAD # 可选：SEMAPHORE THREAD
   #限流配置
   ratelimit:
       key-prefix: botong
@@ -99,6 +110,7 @@ zuul:
           refresh-interval: 30 # 刷新时间窗口的时间，默认值 (秒)
           type:
            - origin
+  ignored-patterns: /admin/api/adminUser/login,/passport/user/login-code,/passport/user/send-login-code,/passport/user/login-pwd,/auth-server/auth/refresh-token,/app-center/app/create,/passport/web/user/login-pwd
 
 ##配置注册中心
 eureka:
