@@ -89,25 +89,30 @@ public class PermissionValidator implements Validator {
         final String method = context.getRequest().getMethod();
         final String memberId = HeaderHelper.getMemberId(context);
 
-        if (StringUtils.isEmpty(memberId)) {
-            throw new BaseRuntimeException(StatusCode.MISSING_REQUIRE_FIELD);
-        }
-        /**
-         * 先验证memberId和passportId
+        //当memberId参数为空时忽略memberId
+        boolean ignoreMemberId = StringUtils.isEmpty(memberId);
+
+        /*
+          先验证memberId和passportId
          */
         PermissionContext permissionContext = PermissionContext.getCurrentContext();
         JwtUserDto jwtUserDto = permissionContext.getJwtUser();
-        if (!validateMember(jwtUserDto, memberId)) {
+
+        //不忽略memberId时，校验memberId换取得passportId和token中passportId比较,不相等时，返回权限错误异常
+        if (!ignoreMemberId && !validateMember(jwtUserDto, memberId)) {
             throw new BaseRuntimeException(StatusCode.FORBIDDEN);
         }
-
+        //获取当前用户passport所对应的可访问资源
         List<ResourceDto> accessibleResourceList = getCurrentUserAccessibleResource(jwtUserDto.getIdentity());
-        //passportId对应的可访问资源列表不存在，则用用memberId尝试
-        if (CollectionUtils.isEmpty(accessibleResourceList)) {
-            accessibleResourceList = getCurrentUserAccessibleResource(memberId);
-        } else {
-            //passportId对应的访问资源存在，合并memberId和passportId的可访问资源列表
+
+        //如果不忽略,追加memberId可访问资源列表
+        if (!ignoreMemberId) {
             accessibleResourceList.addAll(getCurrentUserAccessibleResource(memberId));
+        }
+
+        //如果访问资源是空，抛出权限异常
+        if (CollectionUtils.isEmpty(accessibleResourceList)) {
+            throw new BaseRuntimeException(StatusCode.FORBIDDEN);
         }
 
         boolean matched = accessibleResourceList.parallelStream().distinct().anyMatch(resourceDto -> resourceDto.getMethod().equalsIgnoreCase(method)
