@@ -29,7 +29,13 @@ dependencies {
     //添加公共组件
     compile('com.yunjing.botong:commons:2.0.0-SNAPSHOT') { changing = true }
 
+
+    //添加Redis组件
+    compile('com.yunjing.botong:commons-redis:2.0.0-SNAPSHOT') { changing = true }
+
     //Redis
     compile('org.springframework.boot:spring-boot-starter-data-redis')
-    
+
+    compile "org.springframework.boot:spring-boot-configuration-processor"
 }
+

@@ -1,4 +1,4 @@
-package com.yunjing.zuul.fallback;
+package com.yunjing.zuul.permission.fallback;
 
 import com.alibaba.fastjson.JSON;
 import com.yunjing.mommon.constant.StatusCode;

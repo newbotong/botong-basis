@@ -1,8 +1,8 @@
-package com.yunjing.zuul.processor.feign;
+package com.yunjing.zuul.permission.processor.feign;
 
 import com.yunjing.mommon.wrapper.ResponseEntityWrapper;
-import com.yunjing.zuul.dto.JwtUserDto;
-import com.yunjing.zuul.processor.feign.fallback.TokenRemoteServiceFallback;
+import com.yunjing.zuul.permission.dto.JwtUserDto;
+import com.yunjing.zuul.permission.processor.feign.fallback.TokenRemoteServiceFallback;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

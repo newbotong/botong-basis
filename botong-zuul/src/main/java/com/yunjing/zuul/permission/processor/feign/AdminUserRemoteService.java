@@ -1,8 +1,8 @@
-package com.yunjing.zuul.processor.feign;
+package com.yunjing.zuul.permission.processor.feign;
 
 import com.yunjing.mommon.wrapper.ResponseEntityWrapper;
-import com.yunjing.zuul.dto.ResourceDto;
-import com.yunjing.zuul.processor.feign.fallback.AdminUserRemoteServiceFallback;
+import com.yunjing.zuul.permission.dto.ResourceDto;
+import com.yunjing.zuul.permission.processor.feign.fallback.AdminUserRemoteServiceFallback;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +24,6 @@ public interface AdminUserRemoteService {
      * @param userId
      * @return
      */
-    @GetMapping("/rpc/adminUser/get-accessible-resource-list")
+    @GetMapping("/rpc/admin-user/get-accessible-resource-list")
     ResponseEntityWrapper<List<ResourceDto>> accessResourceListByUser(@RequestParam("userId") String userId);
 }

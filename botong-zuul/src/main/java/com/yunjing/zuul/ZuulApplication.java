@@ -2,6 +2,7 @@ package com.yunjing.zuul;
 
 import com.yunjing.mommon.base.BaseApplication;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
@@ -15,7 +16,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
  * @date 2018/2/24 15:26
  * @description
  **/
-@EnableEurekaClient
+//@EnableEurekaClient
 @EnableZuulProxy
 @SpringBootApplication
 @EnableFeignClients

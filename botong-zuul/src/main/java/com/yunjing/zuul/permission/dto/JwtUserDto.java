@@ -1,4 +1,4 @@
-package com.yunjing.zuul.dto;
+package com.yunjing.zuul.permission.dto;
 
 import lombok.Data;
 
