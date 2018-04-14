@@ -32,8 +32,8 @@ public class PermissionFilter extends AbstractZuulFilter {
     /*ignore permission validate  */
     @Override
     public boolean shouldFilter() {
-        //  PermissionContext context = PermissionContext.getCurrentContext();
-        //return !context.ignoredPermissionValidate();
+//        PermissionContext context = PermissionContext.getCurrentContext();
+//        return !context.ignoredPermissionValidate();
         return false;
     }
 
