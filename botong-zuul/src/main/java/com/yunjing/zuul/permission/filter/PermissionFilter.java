@@ -1,15 +1,10 @@
 package com.yunjing.zuul.permission.filter;
 
-import com.netflix.zuul.exception.ZuulException;
-import com.yunjing.mommon.constant.StatusCode;
-import com.yunjing.mommon.global.exception.BaseRuntimeException;
 import com.yunjing.zuul.permission.constant.Constants;
 import com.yunjing.zuul.permission.context.PermissionContext;
 import com.yunjing.zuul.permission.validator.PermissionValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
-import org.springframework.cloud.netflix.zuul.util.ZuulRuntimeException;
 import org.springframework.stereotype.Component;
 
 /**
@@ -34,10 +29,12 @@ public class PermissionFilter extends AbstractZuulFilter {
         return Constants.FilterOrder.PERMISSION_FILTER_ORDER;
     }
 
+    /*ignore permission validate  */
     @Override
     public boolean shouldFilter() {
-        PermissionContext context = PermissionContext.getCurrentContext();
-        return !context.ignoredPermissionValidate();
+        //  PermissionContext context = PermissionContext.getCurrentContext();
+        //return !context.ignoredPermissionValidate();
+        return false;
     }
 
 
