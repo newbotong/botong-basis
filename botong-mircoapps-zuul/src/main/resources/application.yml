@@ -26,7 +26,24 @@ zuul:
   host:
       connect-timeout-millis: 30000
       socket-timeout-millis: 60000
+      max-total-connections: 500 # 每个服务的http客户端连接池最大连接，默认值是200
+      max-per-route-connections: 50 # 每个route可用的最大连接数，默认值是20
   routes:
     appcenter-domain:
       path: /appcenter/**
       serviceId: botong-app-center-domain
+    botong-approval:
+      path: /approval/**
+      serviceId: botong-approval
+    botong-info:
+      path: /info/**
+      serviceId: botong-info
+    botong-log:
+      path: /log/**
+      serviceId: botong-log
+    botong-notice:
+      path: /notice/**
+      serviceId: botong-notice
+    botong-sign:
+      path: /sign/**
+      serviceId: botong-sign
