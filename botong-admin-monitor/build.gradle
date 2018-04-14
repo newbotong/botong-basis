@@ -7,12 +7,12 @@ dependencies {
     compile project (':commons')
 
     //添加Spring cloud admin服务健康状态监控
-    compile group: 'de.codecentric', name: 'spring-boot-admin-server', version: '1.5.1'
-    compile group: 'de.codecentric', name: 'spring-boot-admin-server-ui', version: '1.5.1'
-    compile 'de.codecentric:spring-boot-admin-server-ui-hystrix:1.5.1'
-    compile 'de.codecentric:spring-boot-admin-server-ui-login:1.5.1'
-    compile 'de.codecentric:spring-boot-admin-server-ui-activiti:1.5.1'
-    compile 'de.codecentric:spring-boot-admin-server-ui-turbine:1.5.1'
+    compile group: 'de.codecentric', name: 'spring-boot-admin-server', version: '1.5.5'
+    compile group: 'de.codecentric', name: 'spring-boot-admin-server-ui', version: '1.5.5'
+    compile 'de.codecentric:spring-boot-admin-server-ui-hystrix:1.5.5'
+    compile 'de.codecentric:spring-boot-admin-server-ui-login:1.5.5'
+    compile 'de.codecentric:spring-boot-admin-server-ui-activiti:1.5.5'
+    compile 'de.codecentric:spring-boot-admin-server-ui-turbine:1.5.5'
 
     //添加Spring cloud 健康监控接口
     compile('org.springframework.boot:spring-boot-starter-actuator:1.5.4.RELEASE')
