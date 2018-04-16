@@ -124,7 +124,7 @@ zuul:
     org-admin:
       path: /org-admin/**
       serviceId: botong-org-admin-domain
-    org-admin:
+    org-book:
       path: /org-book/**
       serviceId: botong-book
   prefix: /api
