@@ -4,6 +4,7 @@ import com.netflix.zuul.context.RequestContext;
 import com.yunjing.mommon.constant.StatusCode;
 import com.yunjing.mommon.global.exception.BaseRuntimeException;
 import com.yunjing.mommon.wrapper.ResponseEntityWrapper;
+import com.yunjing.zuul.permission.constant.Constants;
 import com.yunjing.zuul.permission.context.PermissionContext;
 import com.yunjing.zuul.permission.dao.redis.respository.OrgUserInfoRepository;
 import com.yunjing.zuul.permission.dto.JwtUserDto;
@@ -16,8 +17,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.netflix.zuul.filters.Route;
+import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.UrlPathHelper;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -30,20 +34,24 @@ import java.util.List;
  * @description
  **/
 @Component
-public class PermissionValidator implements Validator {
+public class PermissionValidator extends AbstractValidator {
 
     private static final Logger logger = LoggerFactory.getLogger(PermissionValidator.class);
 
     @Value("${zuul.prefix}")
     private String prefix;
 
-    @Resource
-    @Lazy
     private AdminUserRemoteService adminUserRemoteService;
 
-    @Resource
-    @Lazy
     private OrgUserInfoRepository orgUserInfoRepository;
+
+    public PermissionValidator(RouteLocator routeLocator, UrlPathHelper urlPathHelper,
+                               AdminUserRemoteService adminUserRemoteService,
+                               OrgUserInfoRepository orgUserInfoRepository) {
+        super(routeLocator, urlPathHelper);
+        this.adminUserRemoteService = adminUserRemoteService;
+        this.orgUserInfoRepository = orgUserInfoRepository;
+    }
 
     /**
      * 获取请求路径
@@ -90,14 +98,18 @@ public class PermissionValidator implements Validator {
         final String method = context.getRequest().getMethod();
         final String memberId = HeaderHelper.getMemberId(context);
 
-        //当memberId参数为空时忽略memberId
-        boolean ignoreMemberId = StringUtils.isEmpty(memberId);
-
-        /*
-          先验证memberId和passportId
-         */
         PermissionContext permissionContext = PermissionContext.getCurrentContext();
         JwtUserDto jwtUserDto = permissionContext.getJwtUser();
+
+        boolean ignoreMemberId = StringUtils.isEmpty(memberId);
+
+        //获取当前请求对应的服务
+        final Route route = route();
+
+        //如果当前登录用户时系统用户并且请求的服务为botong-admin(系统服务)，则不用获取memberId对应的角色和资源信息
+        if (jwtUserDto.isAdmin() && StringUtils.equals(route.getLocation(), Constants.Permission.SYSTEM_ADMIN_SERVICE)) {
+            ignoreMemberId = true;
+        }
 
         //不忽略memberId时，校验memberId换取得passportId和token中passportId比较,不相等时，返回权限错误异常
         if (!ignoreMemberId && !validateMember(jwtUserDto, memberId)) {

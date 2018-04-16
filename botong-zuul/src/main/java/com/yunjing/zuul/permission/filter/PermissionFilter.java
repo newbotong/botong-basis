@@ -11,13 +11,17 @@ import org.springframework.stereotype.Component;
  * @version 1.0.0
  * @author: Gyb
  * @date 2018/3/12
- * @description
+ * @description 访问资源权限校验过滤器
  **/
 @Component
 public class PermissionFilter extends AbstractZuulFilter {
 
+    private final PermissionValidator permissionValidator;
+
     @Autowired
-    private PermissionValidator permissionValidator;
+    public PermissionFilter(PermissionValidator permissionValidator) {
+        this.permissionValidator = permissionValidator;
+    }
 
     @Override
     public String filterType() {
@@ -29,7 +33,9 @@ public class PermissionFilter extends AbstractZuulFilter {
         return Constants.FilterOrder.PERMISSION_FILTER_ORDER;
     }
 
-    /*ignore permission validate  */
+    /**
+     * ignore permission validate (test env)
+     */
     @Override
     public boolean shouldFilter() {
 //        PermissionContext context = PermissionContext.getCurrentContext();

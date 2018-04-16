@@ -45,4 +45,9 @@ public interface Constants {
 
         int PERMISSION_FILTER_ORDER = 12;
     }
+
+    interface Permission {
+
+        String SYSTEM_ADMIN_SERVICE = "botong-admin";
+    }
 }

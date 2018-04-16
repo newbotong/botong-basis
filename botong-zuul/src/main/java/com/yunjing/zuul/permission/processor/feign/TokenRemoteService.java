@@ -1,6 +1,7 @@
 package com.yunjing.zuul.permission.processor.feign;
 
 import com.yunjing.mommon.wrapper.ResponseEntityWrapper;
+import com.yunjing.zuul.ZuulApplication;
 import com.yunjing.zuul.permission.dto.JwtUserDto;
 import com.yunjing.zuul.permission.processor.feign.fallback.TokenRemoteServiceFallback;
 import org.springframework.cloud.netflix.feign.FeignClient;
