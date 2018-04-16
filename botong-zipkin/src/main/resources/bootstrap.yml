@@ -3,7 +3,5 @@ spring:
     config:
       profile: dev
       uri: http://192.168.10.233:10200/
-#      profile: test
-#      uri: http://:10020/
-#      profile: pro-botu
-#      uri: http://:10020/
+  mvc:
+    static-path-pattern: /**

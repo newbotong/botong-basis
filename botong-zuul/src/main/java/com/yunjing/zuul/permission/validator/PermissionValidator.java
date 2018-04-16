@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,7 +65,7 @@ public class PermissionValidator implements Validator {
     private List<ResourceDto> getCurrentUserAccessibleResource(String id) {
         ResponseEntityWrapper<List<ResourceDto>> response = adminUserRemoteService.accessResourceListByUser(id);
         if (response.getStatusCode() == StatusCode.SUCCESS.getStatusCode()) {
-            return response.getData();
+            return response.getData() == null ? new ArrayList<>() : response.getData();
         } else {
             throw new BaseRuntimeException(response.getStatusCode(), response.getStatusMessage());
         }
