@@ -121,6 +121,12 @@ zuul:
     comment:
       path: /comment/**
       serviceId: botong-comment
+    org-admin:
+      path: /org-admin/**
+      serviceId: botong-org-admin-domain
+    org-admin:
+      path: /org-book/**
+      serviceId: botong-book
   prefix: /api
   ribbon-isolation-strategy: THREAD # 可选：SEMAPHORE THREAD
   #限流配置
