@@ -2,18 +2,14 @@ package com.yunjing.mircoapps.zuul.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.netflix.zuul.context.RequestContext;
-import com.yunjing.mommon.constant.StatusCode;
-import com.yunjing.mommon.global.exception.BaseRuntimeException;
+import com.yunjing.mircoapps.zuul.constant.Constants;
 import com.yunjing.mommon.wrapper.ResponseEntityWrapper;
-import com.yunjing.zuul.permission.constant.Constants;
-import com.yunjing.zuul.permission.dto.JwtUserDto;
 import org.apache.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Objects;
 
 /**
  * @version 1.0.0
@@ -33,16 +29,6 @@ public class ResponseBuilder {
     public ResponseBuilder buildRequestHeaderWithToken() {
         String authorization = HeaderHelper.getAuthorization(context);
         context.addZuulRequestHeader(Constants.Header.HEADER_AUTHORIZATION, authorization);
-        return this;
-    }
-
-    public ResponseBuilder buildRequestHeaderWithUserInfo(JwtUserDto jwtUser) {
-        if (Objects.isNull(jwtUser)) {
-            throw new BaseRuntimeException(StatusCode.TOKEN_IS_EMPTY);
-        }
-
-        context.addZuulRequestHeader(Constants.Header.HEADER_USER_ID, jwtUser.getIdentity());
-        context.addZuulRequestHeader(Constants.Header.HEADER_USER_INFO, jwtUser.getUserInfoJson());
         return this;
     }
 
