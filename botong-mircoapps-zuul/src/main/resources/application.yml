@@ -78,6 +78,9 @@ hystrix:
             timeoutInMilliseconds: 50000
           strategy: SEMAPHORE
 
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
 
 logging:
   file: ${user.dir}/logs/${spring.application.name}.log
