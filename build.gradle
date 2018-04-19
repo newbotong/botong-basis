@@ -67,6 +67,9 @@ subprojects {
         compile('org.projectlombok:lombok:1.16.18')
 
         testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+
+        //Logback-redis-appender
+        compile("com.cwbase:logback-redis-appender:1.1.5")
     }
 
 

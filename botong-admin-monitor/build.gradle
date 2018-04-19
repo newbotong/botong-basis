@@ -4,7 +4,10 @@ version '1.0-SNAPSHOT'
 apply plugin: 'org.springframework.boot'
 
 dependencies {
-    compile project (':commons')
+
+    compile("com.yunjing.botong:commons:2.0.0.5-SNAPSHOT") {
+        changing = true
+    }
 
     //添加Spring cloud admin服务健康状态监控
     compile group: 'de.codecentric', name: 'spring-boot-admin-server', version: '1.5.5'
