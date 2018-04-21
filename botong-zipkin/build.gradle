@@ -5,7 +5,7 @@ version '1.0-SNAPSHOT'
 apply plugin: 'org.springframework.boot'
 
 dependencies {
-    compile("com.yunjing.botong:commons:2.0.0.6-SNAPSHOT") {
+    compile("com.yunjing.botong:commons:2.0.0.7-SNAPSHOT") {
         changing = true
     }
     //zipkin server 配置
