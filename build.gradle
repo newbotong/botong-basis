@@ -29,6 +29,11 @@ subprojects {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
+    configurations.all {
+        // check for updates every build
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    }
+
     repositories {
         maven { url "http://192.168.1.94:8014/repository/maven-public/" }
         maven { url "http://192.168.1.94:8014/repository/components-snapshot/" }
