@@ -3,6 +3,15 @@ server:
   port: 23170
   tomcat:
     uri-encoding: UTF-8
+    max-threads: 128 # 最大worker线程
+    min-spare-threads: 64 # 最小worker线程
+  undertow:
+    io-threads: 8 # IO线程数，默认为CPU核心数，最小为2
+    worker-threads: 40 # 阻塞任务线程池，值设置取决于系统的负载，默认为io-threads * 8
+    buffer-size: 512 # 每块buffer的空间大小
+    buffers-per-region: 10 # 每个区分配的buffer数量
+    direct-buffers: true # 是否分配的直接内存
+
 
 ### 设置服务名称
 spring:
@@ -23,6 +32,9 @@ eureka:
 zuul:
   ignoredServices: '*'
   retryable: true
+  SendErrorFilter:
+    error:
+      disable: true
   host:
       connect-timeout-millis: 30000
       socket-timeout-millis: 60000
@@ -47,3 +59,29 @@ zuul:
     botong-sign:
       path: /sign/**
       serviceId: botong-sign
+  ribbon-isolation-strategy: THREAD # 可选：SEMAPHORE THREAD
+
+hystrix:
+  threadpool:
+    default:
+      ##并发执行的最大线程数，默认10
+      coreSize: 1000
+      ##BlockingQueue的最大队列数
+      maxQueueSize: 1000
+      ##即使maxQueueSize没有达到，达到queueSizeRejectionThreshold该值后，请求也会被拒绝
+      queueSizeRejectionThreshold: 500
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 50000
+          strategy: SEMAPHORE
+
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
+
+logging:
+  file: ${user.dir}/logs/${spring.application.name}.log
+  level: info

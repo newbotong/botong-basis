@@ -10,13 +10,9 @@ import com.yunjing.zuul.permission.dto.JwtUserDto;
 import com.yunjing.zuul.permission.processor.feign.TokenRemoteService;
 import com.yunjing.zuul.permission.utils.HeaderHelper;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.util.UrlPathHelper;
 
 /**
  * @version 1.0.0
@@ -25,11 +21,15 @@ import javax.servlet.http.HttpServletRequest;
  * @description Token验证器
  **/
 @Component
-public class TokenValidator implements Validator {
+public class TokenValidator extends AbstractValidator {
 
-    @Resource
-    @Lazy
-    private TokenRemoteService tokenRemoteService;
+    private final TokenRemoteService tokenRemoteService;
+
+    public TokenValidator(RouteLocator routeLocator, UrlPathHelper urlPathHelper,
+                          TokenRemoteService tokenRemoteService) {
+        super(routeLocator, urlPathHelper);
+        this.tokenRemoteService = tokenRemoteService;
+    }
 
     /**
      * 获取token并做非空校验

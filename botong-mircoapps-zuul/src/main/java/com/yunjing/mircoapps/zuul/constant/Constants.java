@@ -1,4 +1,4 @@
-package com.yunjing.zuul.permission.constant;
+package com.yunjing.mircoapps.zuul.constant;
 
 /**
  * @version 1.0.0

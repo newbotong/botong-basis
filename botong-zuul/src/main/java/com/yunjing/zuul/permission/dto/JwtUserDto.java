@@ -1,5 +1,6 @@
 package com.yunjing.zuul.permission.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,5 +16,5 @@ public class JwtUserDto implements Serializable {
 
     private String identity;
     private String userInfoJson;
-    private Boolean isAdmin;
+    private boolean admin;
 }

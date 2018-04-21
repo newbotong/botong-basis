@@ -20,8 +20,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class TokenValidateFilter extends AbstractZuulFilter {
 
+    private final TokenValidator tokenValidator;
+
     @Autowired
-    private TokenValidator tokenValidator;
+    public TokenValidateFilter(TokenValidator tokenValidator) {
+        this.tokenValidator = tokenValidator;
+    }
 
     @Override
     public String filterType() {

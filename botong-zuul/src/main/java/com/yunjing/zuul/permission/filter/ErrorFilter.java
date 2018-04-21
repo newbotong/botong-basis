@@ -9,8 +9,6 @@ import com.yunjing.zuul.permission.utils.ResponseBuilder;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * @version 1.0.0
  * @author: Gyb
@@ -36,19 +34,22 @@ public class ErrorFilter extends AbstractZuulFilter {
 
     @Override
     public Object run() {
-        RequestContext context = RequestContext.getCurrentContext();
-        Throwable throwable = context.getThrowable();
-        Throwable cause = throwable.getCause();
-        if (cause instanceof BaseRuntimeException) {
-            new ResponseBuilder(context).buildErrorResponse(((BaseRuntimeException) cause).getCode(), cause.getMessage()).build();
-        } else {
-            if (cause instanceof ZuulException) {
-                new ResponseBuilder(context).buildErrorResponse(((ZuulException) cause).nStatusCode, cause.getMessage()).build();
+        try {
+            RequestContext context = RequestContext.getCurrentContext();
+            Throwable throwable = context.getThrowable();
+            Throwable cause = throwable.getCause();
+            if (cause instanceof BaseRuntimeException) {
+                new ResponseBuilder(context).buildErrorResponse(((BaseRuntimeException) cause).getCode(), cause.getMessage()).build();
             } else {
-                new ResponseBuilder(context).buildErrorResponse(StatusCode.ERROR.getStatusCode(), cause.getMessage()).build();
+                if (cause instanceof ZuulException) {
+                    new ResponseBuilder(context).buildErrorResponse(((ZuulException) cause).nStatusCode, cause.getMessage()).build();
+                } else {
+                    new ResponseBuilder(context).buildErrorResponse(StatusCode.ERROR.getStatusCode(), cause.getMessage()).build();
+                }
             }
+        } finally {
+            PermissionContext.getCurrentContext().unset();
         }
-        PermissionContext.getCurrentContext().unset();
         return null;
     }
 }

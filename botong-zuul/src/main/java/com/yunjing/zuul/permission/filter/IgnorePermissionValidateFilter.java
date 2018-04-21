@@ -1,9 +1,6 @@
 package com.yunjing.zuul.permission.filter;
 
 import com.netflix.zuul.context.RequestContext;
-import com.netflix.zuul.exception.ZuulException;
-import com.yunjing.mommon.constant.StatusCode;
-import com.yunjing.mommon.global.exception.BaseRuntimeException;
 import com.yunjing.zuul.permission.constant.Constants;
 import com.yunjing.zuul.permission.context.PermissionContext;
 import com.yunjing.zuul.permission.properties.GatewayProperties;
@@ -11,7 +8,6 @@ import com.yunjing.zuul.permission.utils.ResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
-import org.springframework.cloud.netflix.zuul.util.ZuulRuntimeException;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -69,17 +65,6 @@ public class IgnorePermissionValidateFilter extends AbstractZuulFilter {
                 .buildRequestHeaderWithToken()
                 .buildRequestHeaderWithMember()
                 .build();
-//        try {
-//
-//        } catch (BaseRuntimeException e) {
-//            logger.error("过滤器{IgnorePermissionValidateFilter}发生错误", e.getMessage(), e);
-//            ZuulException exception = new ZuulException(e, e.getCode(), e.getMessage());
-//            throw new ZuulRuntimeException(exception);
-//        } catch (Exception e) {
-//            logger.error("过滤器{IgnorePermissionValidateFilter}发生错误", e.getMessage(), e);
-//            ZuulException exception = new ZuulException(e, StatusCode.ERROR.getStatusCode(), e.getMessage());
-//            throw new ZuulRuntimeException(exception);
-//        }
         return null;
     }
 

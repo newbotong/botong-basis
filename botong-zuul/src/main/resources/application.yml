@@ -170,12 +170,17 @@ hystrix:
             timeoutInMilliseconds: 50000
           strategy: SEMAPHORE
 
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
 # 写入文件日志
 logging:
   file: ${user.dir}/logs/${spring.application.name}.log
-
+  level:
+    com.yunjing.zuul.permission.processor.feign: debug
 gate:
   enabled: true
   ignore:
-    uri: /admin/api/adminUser/login,/passport/user/login-code,/passport/user/send-login-code,/passport/user/login-pwd,/auth-server/auth/refresh-token,/app-center/app/create,/passport/web/user/login-pwd
+    uri: /admin/admin-user/login,/passport/user/login-code,/passport/user/send-login-code,/passport/user/login-pwd,/auth-server/auth/refresh-token,/app-center/app/create,/passport/web/user/login-pwd
     startWith: /microapps,/static
