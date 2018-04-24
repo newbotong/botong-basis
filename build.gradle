@@ -11,9 +11,9 @@ subprojects {
         repositories {
 //            maven { url "http://192.168.1.94:8014/repository/maven-public/" }
 //            maven { url "http://192.168.1.94:8014/repository/components-snapshot/" }
+            maven { url "https://repo.spring.io/libs-release" }
             maven { url "http://47.104.252.113:8081/repository/maven-public/"}
             maven { url "http://47.104.252.113:8081/repository/components-snapshot/"}
-            maven { url "https://repo.spring.io/libs-release" }
             mavenLocal()
             mavenCentral()
         }
