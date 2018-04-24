@@ -26,14 +26,15 @@ dependencies {
     //feign配置
     compile("org.springframework.cloud:spring-cloud-starter-feign:${springCloudVersion}")
 
+
+    //Redis
+    compile('org.springframework.boot:spring-boot-starter-data-redis')
+
     //添加公共组件
     compile('com.yunjing.botong:commons:2.0.0.8-SNAPSHOT') { changing = true }
 
 
     //添加Redis组件
     compile('com.yunjing.botong:commons-redis:2.0.3-SNAPSHOT') { changing = true }
-
-    //Redis
-    compile('org.springframework.boot:spring-boot-starter-data-redis')
 }
 
