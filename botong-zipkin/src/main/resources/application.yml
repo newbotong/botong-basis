@@ -4,10 +4,6 @@ server:
 spring:
   application:
     name: botong-zipkin
-  sleuth:
-    enabled: true
-    sampler:
-      percentage : 1
   rabbitmq:
     host: ${rabbitmq.server:192.168.10.47}
     port: ${rabbitmq.port:10222}
@@ -18,22 +14,8 @@ spring:
     username: ${spring.datasource.mysql.username}
     password: ${spring.datasource.mysql.password}
     driver-class-name: com.mysql.jdbc.Driver
-    autoReconnect: true
-    useUnicode: true
-    characterEncoding: utf8
-    type: com.alibaba.druid.pool.DruidDataSource   #这里是配置druid连接池，以下都是druid的配置信息
-    maxActive: 20
-    initialSize: 1
-    maxWait: 60000
-    minIdle: 1
-    timeBetweenEvictionRunsMillis: 60000
-    minEvictableIdleTimeMillis: 300000
-    validationQuery: select 'x'
-    testWhileIdle: true
-    testOnBorrow: false
-    testOnReturn: false
-    poolPreparedStatements: true
-    maxOpenPreparedStatements: 20
+    initialize: true
+    continue-on-error: true
 #  cloud:
 #    config:
 #      fail-fast: true
