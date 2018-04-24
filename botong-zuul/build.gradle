@@ -27,7 +27,7 @@ dependencies {
     compile("org.springframework.cloud:spring-cloud-starter-feign:${springCloudVersion}")
 
     //添加公共组件
-    compile('com.yunjing.botong:commons:2.0.0.7-SNAPSHOT') { changing = true }
+    compile('com.yunjing.botong:commons:2.0.0.8-SNAPSHOT') { changing = true }
 
 
     //添加Redis组件
