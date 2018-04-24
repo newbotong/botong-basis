@@ -13,7 +13,7 @@ subprojects {
 //            maven { url "http://192.168.1.94:8014/repository/components-snapshot/" }
 //            maven { url "http://47.104.252.113:8081/nexus/content/groups/public/"}
 //            maven { url "http://47.104.252.113:8081/nexus/content/repositories/snapshots/"}
-            maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+//            maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
             maven { url "https://repo.spring.io/libs-release" }
             mavenLocal()
             mavenCentral()
@@ -37,11 +37,11 @@ subprojects {
     }
 
     repositories {
-        maven { url "http://192.168.1.94:8014/repository/maven-public/" }
-        maven { url "http://192.168.1.94:8014/repository/components-snapshot/" }
-        maven { url "http://47.104.252.113:8081/nexus/content/groups/public/"}
-        maven { url "http://47.104.252.113:8081/nexus/content/repositories/snapshots/"}
-        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+//        maven { url "http://192.168.1.94:8014/repository/maven-public/" }
+//        maven { url "http://192.168.1.94:8014/repository/components-snapshot/" }
+//        maven { url "http://47.104.252.113:8081/nexus/content/groups/public/"}
+//        maven { url "http://47.104.252.113:8081/nexus/content/repositories/snapshots/"}
+//        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
         maven { url "https://repo.spring.io/libs-release" }
         mavenLocal()
         mavenCentral()
