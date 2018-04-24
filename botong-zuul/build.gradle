@@ -31,7 +31,7 @@ dependencies {
 
 
     //添加Redis组件
-    compile('com.yunjing.botong:commons-redis:2.0.0-SNAPSHOT') { changing = true }
+    compile('com.yunjing.botong:commons-redis:2.0.3-SNAPSHOT') { changing = true }
 
     //Redis
     compile('org.springframework.boot:spring-boot-starter-data-redis')
