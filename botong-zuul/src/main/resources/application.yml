@@ -130,6 +130,9 @@ zuul:
     org-book:
       path: /org-book/**
       serviceId: botong-book
+    log-monitor:
+      path: /log-monitor/**
+      serviceId: botong-log-monitor
 
   prefix: /api
   ribbon-isolation-strategy: THREAD # 可选：SEMAPHORE THREAD
@@ -183,4 +186,4 @@ gate:
   enabled: true
   ignore:
     uri: /admin/admin-user/login,/passport/user/login-code,/passport/user/send-login-code,/passport/user/login-pwd,/auth-server/auth/refresh-token,/app-center/app/create,/passport/web/user/login-pwd
-    startWith: /microapps,/static
+    startWith: /microapps,/static,/log-monitor
