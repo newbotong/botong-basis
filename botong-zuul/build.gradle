@@ -28,7 +28,7 @@ dependencies {
 
 
     //Redis
-    compile('org.springframework.boot:spring-boot-starter-data-redis')
+    compile("org.springframework.boot:spring-boot-starter-data-redis:${springBootVersion}")
 
     //添加公共组件
     compile('com.yunjing.botong:commons:2.0.0.8-SNAPSHOT') { changing = true }
