@@ -29,7 +29,9 @@ public class ErrorFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        return true;
+        RequestContext ctx = RequestContext.getCurrentContext();
+        // only forward to errorPath if it hasn't been forwarded to already
+        return ctx.getThrowable() != null;
     }
 
     @Override
