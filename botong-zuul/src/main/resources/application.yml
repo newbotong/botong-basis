@@ -143,8 +143,8 @@ zuul:
       repository: REDIS
       behind-proxy: true
       default-policy: #optional - will apply unless specific policy exists
-          limit: 100 #optional - 每个刷新时间窗口对应的请求数量限制
-          refresh-interval: 30 # 刷新时间窗口的时间，默认值 (秒)
+          limit: 100000000 #optional - 每个刷新时间窗口对应的请求数量限制
+          refresh-interval: 1 # 刷新时间窗口的时间，默认值 (秒)
           type:
            - origin
 
@@ -179,7 +179,7 @@ ribbon:
 
 # 写入文件日志
 logging:
-  file: ${user.dir}/logs/${spring.application.name}.log
+  file: ${user.dir}/logs/${spring.application.name}_${server.port}.log
   level:
     com.yunjing.zuul.permission.processor.feign: debug
 gate:

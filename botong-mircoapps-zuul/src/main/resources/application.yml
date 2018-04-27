@@ -83,5 +83,5 @@ ribbon:
   ConnectTimeout: 30000
 
 logging:
-  file: ${user.dir}/logs/${spring.application.name}.log
+  file: ${user.dir}/logs/${spring.application.name}_${server.port}.log
   level: info
