@@ -9,6 +9,10 @@ spring:
   application:
     name: botong-admin-monitor
 
+
+management:
+  security:
+    enabled: false
 security:
   basic:
     enabled: false  #关闭原有的Basic认证
