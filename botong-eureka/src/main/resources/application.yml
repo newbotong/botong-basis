@@ -9,6 +9,13 @@ spring:
   application:
     name: botong-eureka
 
+security:
+  basic:
+    enabled: true
+  user:
+    name: botong
+    password: a1ac14b42142ac17fc571de9b073ab74
+
 eureka:
   ##微服务修改减短服务心跳的时间
   instance:
@@ -18,16 +25,14 @@ eureka:
   server:
     enable-self-preservation: false # 开启Eureka自我保护机制,(dev环境下，关闭自我保护，注册服务列表会自动剔除已关闭服务)
     eviction-interval-timer-in-ms: 1000 # 检查服务失效时间(测试环境，1秒检测）
-
-
   client:
     register-with-eureka: false
     fetch-registry: false
     serviceUrl:
-      defaultZone: http://localhost:10100/eureka/
+      defaultZone: http://${security.user.name}:${security.user.password}@localhost:10100/eureka/
 
 logging:
-  file: ${user.dir}/logs/${spring.application.name}.log
+  file: ${user.dir}/logs/${spring.application.name}_${server.port}.log
   level: info
 
 
