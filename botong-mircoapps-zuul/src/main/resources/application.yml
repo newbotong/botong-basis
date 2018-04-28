@@ -3,8 +3,10 @@ server:
   port: 23170
   tomcat:
     uri-encoding: UTF-8
-    max-threads: 128 # 最大worker线程
     min-spare-threads: 64 # 最小worker线程
+    accept-count: 1000
+    max-threads: 1000
+    max-connections: 5000
   undertow:
     io-threads: 8 # IO线程数，默认为CPU核心数，最小为2
     worker-threads: 40 # 阻塞任务线程池，值设置取决于系统的负载，默认为io-threads * 8
@@ -38,8 +40,8 @@ zuul:
   host:
       connect-timeout-millis: 30000
       socket-timeout-millis: 60000
-      max-total-connections: 4000 # 每个服务的http客户端连接池最大连接，默认值是200
-      max-per-route-connections: 500 # 每个route可用的最大连接数，默认值是20
+      max-total-connections: 3000 # 每个服务的http客户端连接池最大连接，默认值是200
+      max-per-route-connections: 3000 # 每个route可用的最大连接数，默认值是20
   routes:
     appcenter-domain:
       path: /appcenter/**
