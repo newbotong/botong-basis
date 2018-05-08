@@ -186,4 +186,4 @@ gate:
   enabled: true
   ignore:
     uri: /admin/admin-user/login,/org-book/book/template/download,/org-book/book/download,/passport/user/login-code,/passport/user/send-login-code,/passport/user/login-pwd,/auth-server/auth/refresh-token,/app-center/app/create,/passport/web/user/login-pwd
-    startWith: /microapps,/static,/log-monitor
+    startWith: /microapps,/static,/log-monitor,/passport/user/send-recover-password-code,/passport/user/verify-recover-password-code
