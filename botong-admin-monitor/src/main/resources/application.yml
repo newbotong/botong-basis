@@ -13,9 +13,10 @@ spring:
 management:
   security:
     enabled: false
+
 security:
   basic:
-    enabled: false  #关闭原有的Basic认证
+    enabled: true  #关闭原有的Basic认证
   user:
     name: botong
     password: a1ac14b42142ac17fc571de9b073ab74
@@ -24,7 +25,9 @@ security:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://botong:a1ac14b42142ac17fc571de9b073ab74@172.31.106.215:10100/eureka/
+#      defaultZone: http://botong:a1ac14b42142ac17fc571de9b073ab74@172.31.106.215:10100/eureka/
+      defaultZone: http://botong:a1ac14b42142ac17fc571de9b073ab74@192.168.10.229:10100/eureka/
+#      defaultZone: http://botong:a1ac14b42142ac17fc571de9b073ab74@localhost:10100/eureka/
   instance:
     lease-expiration-duration-in-seconds: 30
     lease-renewal-interval-in-seconds: 10
@@ -33,4 +36,7 @@ eureka:
 logging:
   file: ${user.dir}/logs/${spring.application.name}.log
   level: info
+endpoints:
+  beans:
+    enabled: true
 
