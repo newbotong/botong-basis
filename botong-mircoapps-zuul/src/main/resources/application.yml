@@ -61,9 +61,6 @@ zuul:
     botong-sign:
       path: /sign/**
       serviceId: botong-sign
-    botong-search:
-      path: /search/**
-      serviceId: botong-search
   ribbon-isolation-strategy: THREAD # 可选：SEMAPHORE THREAD
 
 hystrix:

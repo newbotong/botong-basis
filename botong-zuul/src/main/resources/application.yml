@@ -133,6 +133,9 @@ zuul:
     log-monitor:
       path: /log-monitor/**
       serviceId: botong-log-monitor
+    botong-search:
+      path: /search/**
+      serviceId: botong-search
 
   prefix: /api
   ribbon-isolation-strategy: THREAD # 可选：SEMAPHORE THREAD
