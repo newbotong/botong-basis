@@ -8,13 +8,13 @@ server:
 spring:
   application:
     name: botong-eureka
-
-security:
-  basic:
-    enabled: true
-  user:
-    name: botong
-    password: a1ac14b42142ac17fc571de9b073ab74
+# 线上放开，测试环境注释掉
+#security:
+#  basic:
+#    enabled: true
+#  user:
+#    name: botong
+#    password: a1ac14b42142ac17fc571de9b073ab74
 
 eureka:
   ##微服务修改减短服务心跳的时间
@@ -29,7 +29,8 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
     serviceUrl:
-      defaultZone: http://${security.user.name}:${security.user.password}@localhost:10100/eureka/
+#      defaultZone: http://${security.user.name}:${security.user.password}@localhost:10100/eureka/
+      defaultZone: http://localhost:10100/eureka/
 
 logging:
   file: ${user.dir}/logs/${spring.application.name}_${server.port}.log
