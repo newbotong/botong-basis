@@ -6,3 +6,5 @@ include 'botong-zipkin'
 include 'botong-mircoapps-zuul'
 include 'botong-admin-monitor'
 
+include 'botong-commons'
+
