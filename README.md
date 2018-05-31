@@ -1,5 +1,5 @@
 # gradle_CI
-[![Build Status](https://travis-ci.org/zyazxr/gradle_CI.svg?branch=master)](https://travis-ci.org/zyazxr/gradle_CI)
+[![Build Status](https://travis-ci.org/newbotong/botong-basis.svg?branch=master)](https://travis-ci.org/newbotong/botong-basis)
 
 
 # 基础模块
